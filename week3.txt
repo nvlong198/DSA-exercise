@@ -1,0 +1,410 @@
+/* câu 1*/
+#include <iostream>
+using namespace std;
+
+struct Node{
+    int value;
+    Node *next;
+    Node *pre;
+};
+
+class LinkedList{
+public:
+    LinkedList(){
+        head = NULL;
+        tail = NULL;
+        listSize = 0;
+    }
+    void addNode(int value){
+         Node* tmp = new Node;
+		tmp->value = value;
+		tmp->next = NULL;
+		tmp->pre = NULL;
+		if (head == NULL) {
+			head = tmp;
+			tail = tmp;
+		}
+		else {
+			tail->next = tmp;
+			tmp->pre = tail;
+			tail = tmp;
+		}
+		listSize ++;
+    }
+    void deleteNode(){
+       if (head == NULL)
+	    return;
+        Node* tmp = head;
+        if (head == tail){
+        	head = NULL;
+        	tail = NULL;
+		}
+        else {
+			while (tmp != NULL) {
+	        	if (tmp->next == NULL) {     	
+					tail = tmp->pre;
+					tail->next = NULL;
+				}
+				tmp = tmp->next;
+	        }
+	    }
+        listSize --;
+    }
+    void printAll(){
+        Node* tmp = head;
+        while (tmp != NULL){
+            cout << tmp->value << " ";
+            tmp = tmp->next;
+        }
+        cout << endl;
+    }
+    int getSize(){
+         return listSize; 
+    }
+
+private:
+    Node *head;
+    Node *tail;
+    int listSize;
+};
+int main(){
+    LinkedList a = LinkedList();
+    int Q, type, value;
+    cin >> Q;
+    for (int i=0; i< Q; i++){
+            cin >> type;
+            switch(type){
+            case 1:
+                cin >> value;
+                a.addNode(value);
+                break;
+            case 2:
+                a.deleteNode();
+                break;
+            case 3:
+                cout << a.getSize() << endl;
+                break;
+            }
+    }
+    return 0;
+}
+/*câu 2*/
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+struct Node{
+    int value;
+    Node *nextNode;
+    Node()
+    {
+        nextNode = NULL;
+    }
+    Node(int initValue)
+    {
+        value = initValue;
+        nextNode = NULL;
+    }
+};
+
+struct linkedList{
+    Node *head;
+    linkedList()
+    {
+        head = NULL;
+    }
+    void addNode(int value)
+    {
+        Node* tmp = new Node(value);
+        if (head == NULL) {
+        	head = tmp;
+		}
+		else {
+			Node* p = head;
+			while(p != NULL) {
+				if (p->nextNode == NULL) {
+					p->nextNode = tmp;
+					p = tmp;
+				}
+				p = p->nextNode;	
+			}
+		}
+    }
+
+    int getElement(int index)
+    {
+         if (head == NULL)
+    		return 0;
+    	Node* temp = head;
+        while (index > 1) {
+        	temp = temp->nextNode;
+			index --;  	
+		}
+		return temp->value;
+    }
+};
+
+
+int main()
+{
+    linkedList myLinkedList;
+    int number,n_numbers = 0;
+    while (cin >> number)
+    {
+        myLinkedList.addNode(number);
+        ++n_numbers;
+    }
+    for (int i = 1; i <= n_numbers; ++i)
+        cout << myLinkedList.getElement(i) << " ";
+    return 0;
+}
+/* câu 3*/
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+struct Node{
+    int value;
+    Node *nextNode;
+    Node()
+    {
+        nextNode = NULL;
+    }
+    Node(int initValue)
+    {
+        value = initValue;
+        nextNode = NULL;
+    }
+};
+
+struct linkedList{
+    Node *head;
+    linkedList()
+    {
+        head = NULL;
+    }
+    void addNode(int value)
+    {
+        Node* tmp = new Node(value);
+        if (head == NULL) {
+        	head = tmp;
+		}
+		else {
+			Node* p = head;
+			while(p != NULL) {
+				if (p->nextNode == NULL) {
+					p->nextNode = tmp;
+					p = tmp;
+				}
+				p = p->nextNode;	
+			}
+		}
+    }
+
+    void sort()
+    {
+         if (head == NULL)
+    		return;
+    	Node* p = head;
+    	while (p->nextNode != NULL) {
+    		Node* q = p->nextNode; 
+    		while (q != NULL) {
+	    		if (p->value > q->value){
+	    			//doi cho
+	    			int temp = p->value;
+	    			p->value = q->value;
+	    			q->value = temp;
+				}
+				q = q->nextNode;
+			}
+			p = p->nextNode;
+		}
+    }
+    void printLinkedlist()
+    {
+        Node* tmp = head;
+        while (tmp != NULL){
+            cout << tmp->value << " ";
+            tmp = tmp->nextNode;
+        }
+        cout << endl;
+    }
+};
+
+
+int main()
+{
+    linkedList myLinkedList;
+    int number,n_numbers = 0;
+    while (cin >> number)
+    {
+        myLinkedList.addNode(number);
+        ++n_numbers;
+    }
+    myLinkedList.sort();
+    myLinkedList.printLinkedlist();
+    return 0;
+}
+/* câu 4*/
+#include <iostream>
+
+using namespace std;
+
+struct Node{
+    int value;
+    Node *nextNode;
+    Node()
+    {
+        nextNode = NULL;
+    }
+    Node(int initValue)
+    {
+        value = initValue;
+        nextNode = NULL;
+    }
+};
+
+struct linkedList{
+    Node *head;
+    linkedList()
+    {
+        head = NULL;
+    }
+    void addNode(int value)
+    {
+        Node* tmp = new Node(value);
+        if (head == NULL) {
+        	head = tmp;
+		}
+		else {
+			Node* p = head;
+			while(p != NULL) {
+				if (p->nextNode == NULL) {
+					p->nextNode = tmp;
+					p = tmp;
+				}
+				p = p->nextNode;	
+			}
+		}
+    }
+    int sum()
+    {
+       int sum = 0;
+		Node* p = head;
+		if (head == NULL)
+			return 0;
+		while (p != NULL) {
+			sum += p->value;
+			p = p->nextNode;
+		}
+		return sum;
+    }
+};
+
+
+int main()
+{
+    linkedList myLinkedList;
+    int number;
+    while (cin >> number)
+    {
+        myLinkedList.addNode(number);
+    }
+    cout << myLinkedList.sum();
+    return 0;
+}
+/* câu 5*/
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+struct Node{
+    int value;
+    Node *nextNode;
+    Node()
+    {
+        nextNode = NULL;
+    }
+    Node(int initValue)
+    {
+        value = initValue;
+        nextNode = NULL;
+    }
+};
+
+struct linkedList{
+    Node *head;
+    linkedList()
+    {
+        head = NULL;
+    }
+    void addNode(int value)
+    {
+        Node* tmp = new Node(value);
+        if (head == NULL) {
+        	head = tmp;
+		}
+		else {
+			Node* p = head;
+			while(p != NULL) {
+				if (p->nextNode == NULL) {
+					p->nextNode = tmp;
+					p = tmp;
+				}
+				p = p->nextNode;	
+			}
+		}
+    }
+    void deleteNode()
+    {
+       if (head == NULL)
+        	return;
+    	if (head->nextNode == NULL){
+    		head = NULL;
+		}
+		Node* p =head;
+		while (p!= NULL){
+			if (p->nextNode->nextNode == NULL)
+				p->nextNode = NULL;
+			p = p->nextNode;
+		}
+    }
+
+    int getSum()
+    {
+       int sum = 0;
+		Node* p = head;
+		if (head == NULL)
+			return 0;
+		while (p != NULL) {
+			sum += p->value;
+			p = p->nextNode;
+		}
+		return sum;
+    }
+};
+
+
+int main()
+{
+    linkedList myLinkedList;
+    int Q;
+    cin >> Q;
+    int t,number;
+    while (Q--)
+    {
+        cin >> t;
+        if (t == 1)
+        {
+            cin >> number;
+            myLinkedList.addNode(number);
+        }
+        else
+            myLinkedList.deleteNode();
+    }
+    cout << myLinkedList.getSum();
+    return 0;
+}
